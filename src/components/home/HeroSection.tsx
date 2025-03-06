@@ -30,12 +30,16 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg h-auto">
+              <Button
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg h-auto"
+                onClick={() => (window.location.href = "/tournaments")}
+              >
                 Join Tournament
               </Button>
               <Button
                 variant="outline"
                 className="border-gray-700 text-white hover:bg-gray-800 px-8 py-6 text-lg h-auto"
+                onClick={() => (window.location.href = "/events")}
               >
                 Browse Games
               </Button>
@@ -106,7 +110,10 @@ const HeroSection = () => {
                 <div className="text-sm text-gray-300">Starts in 2 days</div>
               </div>
 
-              <Button className="w-full bg-primary hover:bg-primary/90">
+              <Button
+                className="w-full bg-primary hover:bg-primary/90"
+                onClick={() => (window.location.href = "/tournaments")}
+              >
                 Register Now
               </Button>
             </div>

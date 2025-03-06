@@ -178,7 +178,7 @@ const LeaderboardPreview = () => {
         <Button
           variant="outline"
           className="border-gray-700 text-white hover:bg-gray-800"
-          onClick={() => console.log("View full leaderboards")}
+          onClick={() => (window.location.href = "/leaderboards")}
         >
           View Full Rankings
           <ArrowRight className="ml-2 h-4 w-4" />

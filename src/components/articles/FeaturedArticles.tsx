@@ -57,7 +57,7 @@ const FeaturedArticles = () => {
         <Button
           variant="outline"
           className="border-gray-700 text-white hover:bg-gray-800"
-          onClick={() => console.log("View all articles")}
+          onClick={() => (window.location.href = "/articles")}
         >
           View All Articles
           <ArrowRight className="ml-2 h-4 w-4" />

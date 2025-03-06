@@ -240,6 +240,7 @@ const TournamentsList = () => {
         <Button
           variant="outline"
           className="border-gray-700 text-white hover:bg-gray-800"
+          onClick={() => console.log("Load more tournaments")}
         >
           Load More Tournaments
         </Button>
