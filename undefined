@@ -1,0 +1,19 @@
+import TournamentCard from "@/components/tournaments/TournamentCard";
+
+export default function TournamentCardStoryboard() {
+  return (
+    <div className="p-4 bg-gray-950 flex items-center justify-center">
+      <TournamentCard 
+        title="Apex Legends Summer Championship"
+        game="Apex Legends"
+        image="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80"
+        date="August 15, 2023"
+        prizePool="$5,000"
+        teamSize={3}
+        registeredTeams={24}
+        maxTeams={32}
+        status="open"
+      />
+    </div>
+  );
+}
