@@ -99,13 +99,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       // If successful, create a profile in the profiles table
       if (!error && data.user) {
-        await supabase.from("profiles").insert({
-          id: data.user.id,
-          username,
-          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        });
+        try {
+          const { error: profileError } = await supabase
+            .from("profiles")
+            .insert({
+              id: data.user.id,
+              username,
+              avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            });
+
+          if (profileError) {
+            console.error("Error creating profile:", profileError);
+          }
+        } catch (profileErr) {
+          console.error("Exception creating profile:", profileErr);
+        }
       }
 
       return { user: data.user, error };

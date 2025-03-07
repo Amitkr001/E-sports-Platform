@@ -49,24 +49,31 @@ export const getTournaments = async (filters?: {
   status?: string;
   game?: string;
 }): Promise<Tournament[]> => {
-  let query = supabase.from("tournaments").select("*");
+  try {
+    console.log("Fetching tournaments with filters:", filters);
+    let query = supabase.from("tournaments").select("*");
 
-  if (filters?.status && filters.status !== "all") {
-    query = query.eq("status", filters.status);
-  }
+    if (filters?.status && filters.status !== "all") {
+      query = query.eq("status", filters.status);
+    }
 
-  if (filters?.game && filters.game !== "all") {
-    query = query.eq("game", filters.game);
-  }
+    if (filters?.game && filters.game !== "all") {
+      query = query.eq("game", filters.game);
+    }
 
-  const { data, error } = await query.order("date", { ascending: true });
+    const { data, error } = await query.order("date", { ascending: true });
 
-  if (error) {
-    console.error("Error fetching tournaments:", error);
+    if (error) {
+      console.error("Error fetching tournaments:", error);
+      return [];
+    }
+
+    console.log("Tournaments fetched successfully:", data);
+    return data || [];
+  } catch (err) {
+    console.error("Exception fetching tournaments:", err);
     return [];
   }
-
-  return data || [];
 };
 
 export const getTournamentById = async (
