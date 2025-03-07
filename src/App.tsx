@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import routes from "tempo-routes";
+import TournamentCategoryPage from "./pages/TournamentCategoryPage";
 
 // Lazy load pages for better performance
 const TournamentsPage = lazy(() => import("./pages/TournamentsPage"));
@@ -22,6 +23,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tournaments" element={<TournamentsPage />} />
+          <Route
+            path="/tournaments/:category"
+            element={<TournamentCategoryPage />}
+          />
           <Route path="/leaderboards" element={<LeaderboardPage />} />
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/events" element={<EventsPage />} />

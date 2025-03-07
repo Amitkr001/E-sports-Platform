@@ -40,6 +40,15 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
     initialTournaments || mockTournaments,
   );
 
+  // Set active tab based on URL path
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === "/tournaments/open") setActiveTab("open");
+    else if (path === "/tournaments/in-progress") setActiveTab("in-progress");
+    else if (path === "/tournaments/completed") setActiveTab("completed");
+    else setActiveTab("all");
+  }, []);
+
   // Filter tournaments based on active tab, search query, and game filter
   const filteredTournaments = tournaments.filter((tournament) => {
     // Filter by status tab
@@ -110,24 +119,40 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
           <TabsTrigger
             value="all"
             className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            onClick={() =>
+              window.location.pathname !== "/tournaments" &&
+              (window.location.href = "/tournaments")
+            }
           >
             All Tournaments
           </TabsTrigger>
           <TabsTrigger
             value="open"
             className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            onClick={() =>
+              window.location.pathname !== "/tournaments/open" &&
+              (window.location.href = "/tournaments/open")
+            }
           >
             Registration Open
           </TabsTrigger>
           <TabsTrigger
             value="in-progress"
             className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            onClick={() =>
+              window.location.pathname !== "/tournaments/in-progress" &&
+              (window.location.href = "/tournaments/in-progress")
+            }
           >
             In Progress
           </TabsTrigger>
           <TabsTrigger
             value="completed"
             className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            onClick={() =>
+              window.location.pathname !== "/tournaments/completed" &&
+              (window.location.href = "/tournaments/completed")
+            }
           >
             Completed
           </TabsTrigger>
