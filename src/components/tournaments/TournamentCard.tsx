@@ -29,7 +29,7 @@ const TournamentCard = ({
   game = "Free Fire",
   image = "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
   date = "August 15, 2023",
-  prizePool = "$15,000",
+  prizePool = "₹15,000",
   teamSize = 4,
   registeredTeams = 24,
   maxTeams = 32,
@@ -90,7 +90,7 @@ const TournamentCard = ({
 
   return (
     <>
-      <Card className="w-full max-w-[320px] overflow-hidden bg-gray-900 border-gray-800 text-white hover:border-primary/50 transition-all duration-300">
+      <Card className="w-full max-w-[320px] h-full overflow-hidden bg-gray-900 border-gray-800 text-white hover:border-primary/50 transition-all duration-300">
         <div className="relative h-40 w-full overflow-hidden">
           <img
             src={image}

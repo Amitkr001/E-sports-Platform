@@ -392,7 +392,7 @@ const EventsPage = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Trophy size={16} className="text-yellow-500" />
-                  <span className="text-gray-300">$50,000 Prize Pool</span>
+                  <span className="text-gray-300">₹50,000 Prize Pool</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users size={16} className="text-blue-400" />

@@ -6,7 +6,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
     date: "August 15, 2023",
-    prizePool: "$15,000",
+    prizePool: "₹15,000",
     teamSize: 4,
     registeredTeams: 24,
     maxTeams: 32,
@@ -19,7 +19,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
     date: "September 5, 2023",
-    prizePool: "$20,000",
+    prizePool: "₹20,000",
     teamSize: 4,
     registeredTeams: 28,
     maxTeams: 32,
@@ -32,7 +32,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
     date: "July 28, 2023",
-    prizePool: "$25,000",
+    prizePool: "₹25,000",
     teamSize: 4,
     registeredTeams: 12,
     maxTeams: 16,
@@ -45,7 +45,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
     date: "June 10, 2023",
-    prizePool: "$12,000",
+    prizePool: "₹12,000",
     teamSize: 4,
     registeredTeams: 48,
     maxTeams: 50,
@@ -58,7 +58,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&q=80",
     date: "October 12, 2023",
-    prizePool: "$30,000",
+    prizePool: "₹30,000",
     teamSize: 5,
     registeredTeams: 18,
     maxTeams: 32,
@@ -71,7 +71,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80",
     date: "November 5, 2023",
-    prizePool: "$50,000",
+    prizePool: "₹50,000",
     teamSize: 4,
     registeredTeams: 30,
     maxTeams: 32,
@@ -84,7 +84,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
     date: "August 25, 2023",
-    prizePool: "$8,000",
+    prizePool: "₹8,000",
     teamSize: 4,
     registeredTeams: 64,
     maxTeams: 128,
@@ -97,7 +97,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80",
     date: "September 15, 2023",
-    prizePool: "$10,000",
+    prizePool: "₹10,000",
     teamSize: 4,
     registeredTeams: 42,
     maxTeams: 64,
@@ -110,7 +110,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=800&q=80",
     date: "July 10, 2023",
-    prizePool: "$18,000",
+    prizePool: "₹18,000",
     teamSize: 5,
     registeredTeams: 16,
     maxTeams: 16,
@@ -123,7 +123,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?w=800&q=80",
     date: "June 5, 2023",
-    prizePool: "$15,000",
+    prizePool: "₹15,000",
     teamSize: 1,
     registeredTeams: 128,
     maxTeams: 128,
@@ -136,7 +136,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80",
     date: "May 20, 2023",
-    prizePool: "$12,000",
+    prizePool: "₹12,000",
     teamSize: 4,
     registeredTeams: 32,
     maxTeams: 32,
@@ -149,7 +149,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
     date: "August 8, 2023",
-    prizePool: "$5,000",
+    prizePool: "₹5,000",
     teamSize: 4,
     registeredTeams: 10,
     maxTeams: 16,
@@ -162,7 +162,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
     date: "September 30, 2023",
-    prizePool: "$8,000",
+    prizePool: "₹8,000",
     teamSize: 1,
     registeredTeams: 56,
     maxTeams: 128,
@@ -175,7 +175,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
     date: "July 15, 2023",
-    prizePool: "$20,000",
+    prizePool: "₹20,000",
     teamSize: 4,
     registeredTeams: 16,
     maxTeams: 16,
@@ -188,7 +188,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80",
     date: "October 5, 2023",
-    prizePool: "$10,000",
+    prizePool: "₹10,000",
     teamSize: 5,
     registeredTeams: 24,
     maxTeams: 32,
@@ -201,7 +201,7 @@ export const mockTournaments = [
     image:
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
     date: "August 20, 2023",
-    prizePool: "$3,000",
+    prizePool: "₹3,000",
     teamSize: 1,
     registeredTeams: 48,
     maxTeams: 64,

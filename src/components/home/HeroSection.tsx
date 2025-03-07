@@ -98,7 +98,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
                 <div className="absolute bottom-3 left-3 right-3">
                   <h4 className="text-lg font-bold">Free Fire Pro League</h4>
-                  <p className="text-sm text-gray-300">Prize Pool: $15,000</p>
+                  <p className="text-sm text-gray-300">Prize Pool: ₹15,000</p>
                 </div>
               </div>
 

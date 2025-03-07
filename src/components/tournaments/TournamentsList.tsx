@@ -164,7 +164,7 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
               No tournaments found. Try adjusting your filters.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
               {filteredTournaments.map((tournament) => (
                 <TournamentCard key={tournament.id} {...tournament} />
               ))}
@@ -178,7 +178,7 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
               No open tournaments found. Try adjusting your filters.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
               {filteredTournaments.map((tournament) => (
                 <TournamentCard key={tournament.id} {...tournament} />
               ))}
@@ -192,7 +192,7 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
               No in-progress tournaments found. Try adjusting your filters.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
               {filteredTournaments.map((tournament) => (
                 <TournamentCard key={tournament.id} {...tournament} />
               ))}
@@ -206,7 +206,7 @@ const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
               No completed tournaments found. Try adjusting your filters.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
               {filteredTournaments.map((tournament) => (
                 <TournamentCard key={tournament.id} {...tournament} />
               ))}
