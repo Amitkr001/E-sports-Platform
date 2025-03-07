@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLeaderboard } from "@/hooks/useSupabaseData";
+import { Skeleton } from "@/components/ui/skeleton";
+import SupabaseDebug from "@/components/debug/SupabaseDebug";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trophy, Medal, Star, ArrowRight, Search, Filter } from "lucide-react";
@@ -36,8 +39,27 @@ const LeaderboardPage = () => {
   const [activeGame, setActiveGame] = useState("freefire");
   const [searchQuery, setSearchQuery] = useState("");
   const [timeFilter, setTimeFilter] = useState("all-time");
+  const [showDebug, setShowDebug] = useState(false);
   const { isLoggedIn } = useAuth();
   const { toast } = useToast();
+  const {
+    leaderboard: supabaseLeaderboard,
+    loading,
+    error,
+  } = useLeaderboard(activeGame);
+
+  // Toggle debug panel with Ctrl+Shift+D
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === "D") {
+        e.preventDefault();
+        setShowDebug((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Mock data for leaderboards
   const games: Game[] = [
@@ -394,7 +416,47 @@ const LeaderboardPage = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
-                      {filteredPlayers.length > 0 ? (
+                      {loading ? (
+                        Array(5)
+                          .fill(0)
+                          .map((_, i) => (
+                            <tr key={`skeleton-${i}`}>
+                              <td className="px-4 py-4 whitespace-nowrap">
+                                <Skeleton className="h-6 w-6 bg-gray-800 rounded-full mx-auto" />
+                              </td>
+                              <td className="px-4 py-4 whitespace-nowrap">
+                                <div className="flex items-center">
+                                  <Skeleton className="h-10 w-10 bg-gray-800 rounded-full" />
+                                  <div className="ml-4">
+                                    <Skeleton className="h-4 w-32 bg-gray-800" />
+                                    <Skeleton className="h-3 w-16 bg-gray-800 mt-2" />
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-4 py-4 whitespace-nowrap">
+                                <Skeleton className="h-4 w-16 bg-gray-800" />
+                              </td>
+                              <td className="px-4 py-4 whitespace-nowrap">
+                                <Skeleton className="h-4 w-8 bg-gray-800" />
+                              </td>
+                              <td className="px-4 py-4 whitespace-nowrap text-center">
+                                <Skeleton className="h-4 w-4 bg-gray-800 mx-auto" />
+                              </td>
+                            </tr>
+                          ))
+                      ) : error ? (
+                        <tr>
+                          <td
+                            colSpan={5}
+                            className="px-4 py-8 text-center text-red-400"
+                          >
+                            <p>
+                              Error loading leaderboard. Please try again later.
+                            </p>
+                            <p className="text-sm mt-2">{error.message}</p>
+                          </td>
+                        </tr>
+                      ) : filteredPlayers.length > 0 ? (
                         filteredPlayers.map((player) => (
                           <tr
                             key={player.id}
@@ -521,6 +583,11 @@ const LeaderboardPage = () => {
         </div>
       </main>
 
+      {showDebug && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SupabaseDebug />
+        </div>
+      )}
       <Footer />
     </div>
   );

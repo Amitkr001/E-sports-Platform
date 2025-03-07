@@ -44,6 +44,9 @@ export const updateProfile = async (
   return data;
 };
 
+// Import mock tournaments for fallback
+import { mockTournaments } from "@/data/mockTournaments";
+
 // Tournaments
 export const getTournaments = async (filters?: {
   status?: string;
@@ -65,14 +68,22 @@ export const getTournaments = async (filters?: {
 
     if (error) {
       console.error("Error fetching tournaments:", error);
-      return [];
+      // Return mock data if there's an error
+      return mockTournaments;
+    }
+
+    // If no data returned from Supabase, use mock data
+    if (!data || data.length === 0) {
+      console.log("No tournaments found in database, using mock data");
+      return mockTournaments;
     }
 
     console.log("Tournaments fetched successfully:", data);
-    return data || [];
+    return data;
   } catch (err) {
     console.error("Exception fetching tournaments:", err);
-    return [];
+    // Return mock data if there's an exception
+    return mockTournaments;
   }
 };
 

@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useEvents } from "@/hooks/useSupabaseData";
+import { Skeleton } from "@/components/ui/skeleton";
+import SupabaseDebug from "@/components/debug/SupabaseDebug";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -34,112 +37,129 @@ const EventsPage = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [searchQuery, setSearchQuery] = useState("");
   const [gameFilter, setGameFilter] = useState("all");
+  const [showDebug, setShowDebug] = useState(false);
+  const { events: supabaseEvents, loading, error } = useEvents();
 
-  // Mock data for events
-  const events: Event[] = [
-    {
-      id: "1",
-      title: "Free Fire Pro League Season 5",
-      description:
-        "The biggest Free Fire tournament of the year with teams from across the country competing for glory.",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
-      date: "August 15-20, 2023",
-      location: "Online",
-      type: "online",
-      game: "Free Fire",
-      registrationDeadline: "August 1, 2023",
-      prizePool: "$15,000",
-      status: "upcoming",
-      participants: 24,
-      maxParticipants: 32,
-    },
-    {
-      id: "2",
-      title: "BGMI Masters Series",
-      description:
-        "Elite BGMI tournament featuring the top professional teams competing for the championship title.",
-      image:
-        "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
-      date: "September 5-12, 2023",
-      location: "Mumbai, India",
-      type: "offline",
-      game: "BGMI",
-      registrationDeadline: "August 20, 2023",
-      prizePool: "$20,000",
-      status: "upcoming",
-      participants: 28,
-      maxParticipants: 32,
-    },
-    {
-      id: "3",
-      title: "Free Fire World Series Qualifiers",
-      description:
-        "Regional qualifiers for the Free Fire World Series. Top teams will advance to the global championship.",
-      image:
-        "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
-      date: "July 28-30, 2023",
-      location: "Online + Delhi, India",
-      type: "hybrid",
-      game: "Free Fire",
-      registrationDeadline: "July 15, 2023",
-      prizePool: "$25,000",
-      status: "ongoing",
-      participants: 12,
-      maxParticipants: 16,
-    },
-    {
-      id: "4",
-      title: "BGMI Rising Stars Tournament",
-      description:
-        "Tournament designed for emerging talent in the BGMI scene. Great opportunity for new teams to showcase their skills.",
-      image:
-        "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
-      date: "June 10-12, 2023",
-      location: "Online",
-      type: "online",
-      game: "BGMI",
-      registrationDeadline: "June 1, 2023",
-      prizePool: "$12,000",
-      status: "completed",
-      participants: 48,
-      maxParticipants: 50,
-    },
-    {
-      id: "5",
-      title: "Mobile Gaming Festival 2023",
-      description:
-        "The biggest mobile gaming event of the year featuring tournaments, meet & greets with pro players, and exclusive game reveals.",
-      image:
-        "https://images.unsplash.com/photo-1511882150382-421056c89033?w=800&q=80",
-      date: "October 15-17, 2023",
-      location: "Bangalore, India",
-      type: "offline",
-      game: "Multiple",
-      registrationDeadline: "September 30, 2023",
-      prizePool: "$50,000",
-      status: "upcoming",
-      participants: 120,
-      maxParticipants: 200,
-    },
-    {
-      id: "6",
-      title: "Free Fire Campus Challenge",
-      description:
-        "Inter-college Free Fire tournament open to students across the country. Represent your campus and compete for scholarships.",
-      image:
-        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
-      date: "August 25-27, 2023",
-      location: "Online + Regional Finals",
-      type: "hybrid",
-      game: "Free Fire",
-      registrationDeadline: "August 10, 2023",
-      prizePool: "$8,000 + Scholarships",
-      status: "upcoming",
-      participants: 64,
-      maxParticipants: 128,
-    },
-  ];
+  // Toggle debug panel with Ctrl+Shift+D
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === "D") {
+        e.preventDefault();
+        setShowDebug((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Use Supabase data or fallback to mock data
+  const events: Event[] = supabaseEvents?.length
+    ? supabaseEvents
+    : [
+        {
+          id: "1",
+          title: "Free Fire Pro League Season 5",
+          description:
+            "The biggest Free Fire tournament of the year with teams from across the country competing for glory.",
+          image:
+            "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
+          date: "August 15-20, 2023",
+          location: "Online",
+          type: "online",
+          game: "Free Fire",
+          registrationDeadline: "August 1, 2023",
+          prizePool: "$15,000",
+          status: "upcoming",
+          participants: 24,
+          maxParticipants: 32,
+        },
+        {
+          id: "2",
+          title: "BGMI Masters Series",
+          description:
+            "Elite BGMI tournament featuring the top professional teams competing for the championship title.",
+          image:
+            "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
+          date: "September 5-12, 2023",
+          location: "Mumbai, India",
+          type: "offline",
+          game: "BGMI",
+          registrationDeadline: "August 20, 2023",
+          prizePool: "$20,000",
+          status: "upcoming",
+          participants: 28,
+          maxParticipants: 32,
+        },
+        {
+          id: "3",
+          title: "Free Fire World Series Qualifiers",
+          description:
+            "Regional qualifiers for the Free Fire World Series. Top teams will advance to the global championship.",
+          image:
+            "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
+          date: "July 28-30, 2023",
+          location: "Online + Delhi, India",
+          type: "hybrid",
+          game: "Free Fire",
+          registrationDeadline: "July 15, 2023",
+          prizePool: "$25,000",
+          status: "ongoing",
+          participants: 12,
+          maxParticipants: 16,
+        },
+        {
+          id: "4",
+          title: "BGMI Rising Stars Tournament",
+          description:
+            "Tournament designed for emerging talent in the BGMI scene. Great opportunity for new teams to showcase their skills.",
+          image:
+            "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
+          date: "June 10-12, 2023",
+          location: "Online",
+          type: "online",
+          game: "BGMI",
+          registrationDeadline: "June 1, 2023",
+          prizePool: "$12,000",
+          status: "completed",
+          participants: 48,
+          maxParticipants: 50,
+        },
+        {
+          id: "5",
+          title: "Mobile Gaming Festival 2023",
+          description:
+            "The biggest mobile gaming event of the year featuring tournaments, meet & greets with pro players, and exclusive game reveals.",
+          image:
+            "https://images.unsplash.com/photo-1511882150382-421056c89033?w=800&q=80",
+          date: "October 15-17, 2023",
+          location: "Bangalore, India",
+          type: "offline",
+          game: "Multiple",
+          registrationDeadline: "September 30, 2023",
+          prizePool: "$50,000",
+          status: "upcoming",
+          participants: 120,
+          maxParticipants: 200,
+        },
+        {
+          id: "6",
+          title: "Free Fire Campus Challenge",
+          description:
+            "Inter-college Free Fire tournament open to students across the country. Represent your campus and compete for scholarships.",
+          image:
+            "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
+          date: "August 25-27, 2023",
+          location: "Online + Regional Finals",
+          type: "hybrid",
+          game: "Free Fire",
+          registrationDeadline: "August 10, 2023",
+          prizePool: "$8,000 + Scholarships",
+          status: "upcoming",
+          participants: 64,
+          maxParticipants: 128,
+        },
+      ];
 
   // Get unique game names for filter dropdown
   const gameOptions = ["all", ...new Set(events.map((event) => event.game))];
@@ -292,7 +312,23 @@ const EventsPage = () => {
           </TabsList>
 
           <TabsContent value="all" className="mt-4">
-            {renderEventsList(filteredEvents)}
+            {loading ? (
+              <div className="space-y-6">
+                {[1, 2, 3].map((i) => (
+                  <Skeleton
+                    key={i}
+                    className="h-[200px] w-full bg-gray-800 rounded-lg"
+                  />
+                ))}
+              </div>
+            ) : error ? (
+              <div className="text-center py-10 text-red-400">
+                <p>Error loading events. Please try again later.</p>
+                <p className="text-sm mt-2">{error.message}</p>
+              </div>
+            ) : (
+              renderEventsList(filteredEvents)
+            )}
           </TabsContent>
           <TabsContent value="upcoming" className="mt-4">
             {renderEventsList(filteredEvents)}
@@ -415,6 +451,11 @@ const EventsPage = () => {
         </div>
       </main>
 
+      {showDebug && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SupabaseDebug />
+        </div>
+      )}
       <Footer />
     </div>
   );

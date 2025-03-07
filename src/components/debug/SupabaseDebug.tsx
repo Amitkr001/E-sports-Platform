@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/components/ui/use-toast";
+import CreateTournaments from "./CreateTournaments";
 
 const SupabaseDebug = () => {
   const [result, setResult] = useState<string>("");
@@ -90,34 +91,38 @@ const SupabaseDebug = () => {
   };
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-      <h2 className="text-xl font-bold mb-4">Supabase Debug</h2>
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            onClick={testConnection}
-            disabled={loading}
-            className="bg-primary hover:bg-primary/90"
-          >
-            {loading ? "Testing..." : "Test Connection"}
-          </Button>
-          <Button
-            onClick={createTestData}
-            disabled={loading}
-            className="bg-green-600 hover:bg-green-700"
-          >
-            {loading ? "Creating..." : "Create Test Data"}
-          </Button>
-        </div>
-
-        {result && (
-          <div className="bg-gray-800 p-4 rounded-md overflow-auto max-h-60">
-            <pre className="text-sm text-gray-300 whitespace-pre-wrap">
-              {result}
-            </pre>
+    <div className="space-y-6">
+      <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+        <h2 className="text-xl font-bold mb-4">Supabase Debug</h2>
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button
+              onClick={testConnection}
+              disabled={loading}
+              className="bg-primary hover:bg-primary/90"
+            >
+              {loading ? "Testing..." : "Test Connection"}
+            </Button>
+            <Button
+              onClick={createTestData}
+              disabled={loading}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              {loading ? "Creating..." : "Create Test Data"}
+            </Button>
           </div>
-        )}
+
+          {result && (
+            <div className="bg-gray-800 p-4 rounded-md overflow-auto max-h-60">
+              <pre className="text-sm text-gray-300 whitespace-pre-wrap">
+                {result}
+              </pre>
+            </div>
+          )}
+        </div>
       </div>
+
+      <CreateTournaments />
     </div>
   );
 };

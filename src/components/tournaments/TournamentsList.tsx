@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TournamentCard from "./TournamentCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Filter } from "lucide-react";
+import { mockTournaments } from "@/data/mockTournaments";
 
-interface Tournament {
+export interface Tournament {
   id: string;
   title: string;
   game: string;
@@ -25,66 +26,19 @@ interface Tournament {
   status: "open" | "in-progress" | "completed";
 }
 
-const TournamentsList = () => {
+interface TournamentsListProps {
+  initialTournaments?: Tournament[];
+}
+
+const TournamentsList = ({ initialTournaments }: TournamentsListProps = {}) => {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [gameFilter, setGameFilter] = useState("all");
 
-  // Mock data for tournaments
-  const tournaments: Tournament[] = [
-    {
-      id: "1",
-      title: "Free Fire Pro League Season 5",
-      game: "Free Fire",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
-      date: "August 15, 2023",
-      prizePool: "$15,000",
-      teamSize: 4,
-      registeredTeams: 24,
-      maxTeams: 32,
-      status: "open",
-    },
-    {
-      id: "2",
-      title: "BGMI Masters Series",
-      game: "BGMI",
-      image:
-        "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
-      date: "September 5, 2023",
-      prizePool: "$20,000",
-      teamSize: 4,
-      registeredTeams: 28,
-      maxTeams: 32,
-      status: "open",
-    },
-    {
-      id: "3",
-      title: "Free Fire World Series Qualifiers",
-      game: "Free Fire",
-      image:
-        "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
-      date: "July 28, 2023",
-      prizePool: "$25,000",
-      teamSize: 4,
-      registeredTeams: 12,
-      maxTeams: 16,
-      status: "in-progress",
-    },
-    {
-      id: "4",
-      title: "BGMI Rising Stars Tournament",
-      game: "BGMI",
-      image:
-        "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
-      date: "June 10, 2023",
-      prizePool: "$12,000",
-      teamSize: 4,
-      registeredTeams: 48,
-      maxTeams: 50,
-      status: "completed",
-    },
-  ];
+  // Use provided tournaments or fallback to mock data
+  const [tournaments, setTournaments] = useState<Tournament[]>(
+    initialTournaments || mockTournaments,
+  );
 
   // Filter tournaments based on active tab, search query, and game filter
   const filteredTournaments = tournaments.filter((tournament) => {

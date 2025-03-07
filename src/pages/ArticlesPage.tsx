@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useArticles } from "@/hooks/useSupabaseData";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +15,7 @@ import {
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ArticleCard from "@/components/articles/ArticleCard";
+import SupabaseDebug from "@/components/debug/SupabaseDebug";
 
 interface Article {
   id: string;
@@ -29,109 +32,127 @@ const ArticlesPage = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [showDebug, setShowDebug] = useState(false);
+  const { articles: supabaseArticles, loading, error } = useArticles();
 
-  // Mock data for articles
-  const articles: Article[] = [
-    {
-      id: "1",
-      title: "Free Fire vs BGMI: Which Mobile Battle Royale Reigns Supreme?",
-      description:
-        "A detailed comparison of the two most popular mobile battle royale games in India, analyzing gameplay mechanics, graphics, and competitive scenes.",
-      image:
-        "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80",
-      date: "May 15, 2023",
-      category: "Comparison",
-      readTime: "5 min read",
-      views: 1245,
-    },
-    {
-      id: "2",
-      title: "Pro Player Spotlight: The Rise of Total Gaming in Free Fire",
-      description:
-        "An exclusive interview with Ajju Bhai from Total Gaming, discussing his journey to becoming one of India's top Free Fire content creators and players.",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
-      date: "June 3, 2023",
-      category: "Player Profiles",
-      readTime: "8 min read",
-      views: 2389,
-    },
-    {
-      id: "3",
-      title: "Top 5 Smartphone Settings for Competitive BGMI Players",
-      description:
-        "Optimize your mobile device for peak BGMI performance with these essential settings and configurations recommended by pro players.",
-      image:
-        "https://images.unsplash.com/photo-1558742569-fe6d39d05837?w=800&q=80",
-      date: "April 22, 2023",
-      category: "Tips & Tricks",
-      readTime: "6 min read",
-      views: 3156,
-    },
-    {
-      id: "4",
-      title: "The Evolution of Free Fire: From Launch to Global Phenomenon",
-      description:
-        "Tracing the journey of Free Fire from its humble beginnings to becoming one of the most downloaded mobile games worldwide.",
-      image:
-        "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
-      date: "March 10, 2023",
-      category: "Game History",
-      readTime: "7 min read",
-      views: 1876,
-    },
-    {
-      id: "5",
-      title: "BGMI Tournament Strategy Guide: Positioning for Late Game",
-      description:
-        "Learn advanced positioning techniques for the final circles in BGMI tournaments to maximize your chances of securing that Chicken Dinner.",
-      image:
-        "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
-      date: "May 28, 2023",
-      category: "Tips & Tricks",
-      readTime: "9 min read",
-      views: 2754,
-    },
-    {
-      id: "6",
-      title:
-        "Free Fire Character Guide: Choosing the Best Abilities for Your Playstyle",
-      description:
-        "A comprehensive breakdown of all character abilities in Free Fire and how to combine them effectively for different strategies.",
-      image:
-        "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
-      date: "June 15, 2023",
-      category: "Tips & Tricks",
-      readTime: "10 min read",
-      views: 3421,
-    },
-    {
-      id: "7",
-      title:
-        "The Business of Mobile Esports: How BGMI and Free Fire Are Changing the Game",
-      description:
-        "An analysis of the economic impact of mobile esports in India, with a focus on sponsorships, tournaments, and career opportunities.",
-      image:
-        "https://images.unsplash.com/photo-1569974498991-d3c12a504f95?w=800&q=80",
-      date: "April 5, 2023",
-      category: "Industry",
-      readTime: "8 min read",
-      views: 1932,
-    },
-    {
-      id: "8",
-      title:
-        "From Casual to Pro: A Beginner's Journey in Competitive Mobile Gaming",
-      description:
-        "Follow the story of a casual player who transformed into a professional competitor in the mobile gaming scene over the course of a year.",
-      image:
-        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
-      date: "March 22, 2023",
-      category: "Player Profiles",
-      readTime: "6 min read",
-      views: 2145,
-    },
-  ];
+  // Toggle debug panel with Ctrl+Shift+D
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === "D") {
+        e.preventDefault();
+        setShowDebug((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Use Supabase data or fallback to mock data
+  const articles: Article[] = supabaseArticles?.length
+    ? supabaseArticles
+    : [
+        {
+          id: "1",
+          title:
+            "Free Fire vs BGMI: Which Mobile Battle Royale Reigns Supreme?",
+          description:
+            "A detailed comparison of the two most popular mobile battle royale games in India, analyzing gameplay mechanics, graphics, and competitive scenes.",
+          image:
+            "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80",
+          date: "May 15, 2023",
+          category: "Comparison",
+          readTime: "5 min read",
+          views: 1245,
+        },
+        {
+          id: "2",
+          title: "Pro Player Spotlight: The Rise of Total Gaming in Free Fire",
+          description:
+            "An exclusive interview with Ajju Bhai from Total Gaming, discussing his journey to becoming one of India's top Free Fire content creators and players.",
+          image:
+            "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
+          date: "June 3, 2023",
+          category: "Player Profiles",
+          readTime: "8 min read",
+          views: 2389,
+        },
+        {
+          id: "3",
+          title: "Top 5 Smartphone Settings for Competitive BGMI Players",
+          description:
+            "Optimize your mobile device for peak BGMI performance with these essential settings and configurations recommended by pro players.",
+          image:
+            "https://images.unsplash.com/photo-1558742569-fe6d39d05837?w=800&q=80",
+          date: "April 22, 2023",
+          category: "Tips & Tricks",
+          readTime: "6 min read",
+          views: 3156,
+        },
+        {
+          id: "4",
+          title: "The Evolution of Free Fire: From Launch to Global Phenomenon",
+          description:
+            "Tracing the journey of Free Fire from its humble beginnings to becoming one of the most downloaded mobile games worldwide.",
+          image:
+            "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
+          date: "March 10, 2023",
+          category: "Game History",
+          readTime: "7 min read",
+          views: 1876,
+        },
+        {
+          id: "5",
+          title: "BGMI Tournament Strategy Guide: Positioning for Late Game",
+          description:
+            "Learn advanced positioning techniques for the final circles in BGMI tournaments to maximize your chances of securing that Chicken Dinner.",
+          image:
+            "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80",
+          date: "May 28, 2023",
+          category: "Tips & Tricks",
+          readTime: "9 min read",
+          views: 2754,
+        },
+        {
+          id: "6",
+          title:
+            "Free Fire Character Guide: Choosing the Best Abilities for Your Playstyle",
+          description:
+            "A comprehensive breakdown of all character abilities in Free Fire and how to combine them effectively for different strategies.",
+          image:
+            "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=800&q=80",
+          date: "June 15, 2023",
+          category: "Tips & Tricks",
+          readTime: "10 min read",
+          views: 3421,
+        },
+        {
+          id: "7",
+          title:
+            "The Business of Mobile Esports: How BGMI and Free Fire Are Changing the Game",
+          description:
+            "An analysis of the economic impact of mobile esports in India, with a focus on sponsorships, tournaments, and career opportunities.",
+          image:
+            "https://images.unsplash.com/photo-1569974498991-d3c12a504f95?w=800&q=80",
+          date: "April 5, 2023",
+          category: "Industry",
+          readTime: "8 min read",
+          views: 1932,
+        },
+        {
+          id: "8",
+          title:
+            "From Casual to Pro: A Beginner's Journey in Competitive Mobile Gaming",
+          description:
+            "Follow the story of a casual player who transformed into a professional competitor in the mobile gaming scene over the course of a year.",
+          image:
+            "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
+          date: "March 22, 2023",
+          category: "Player Profiles",
+          readTime: "6 min read",
+          views: 2145,
+        },
+      ];
 
   // Get unique categories for filter dropdown
   const categories = [
@@ -240,7 +261,21 @@ const ArticlesPage = () => {
             </TabsList>
           </Tabs>
 
-          {filteredArticles.length === 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Skeleton
+                  key={i}
+                  className="h-[400px] w-full bg-gray-800 rounded-lg"
+                />
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center py-10 text-red-400">
+              <p>Error loading articles. Please try again later.</p>
+              <p className="text-sm mt-2">{error.message}</p>
+            </div>
+          ) : filteredArticles.length === 0 ? (
             <div className="text-center py-10 text-gray-400">
               No articles found matching your search criteria.
             </div>
@@ -325,6 +360,11 @@ const ArticlesPage = () => {
         </div>
       </main>
 
+      {showDebug && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SupabaseDebug />
+        </div>
+      )}
       <Footer />
     </div>
   );
