@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Session, User } from "@supabase/supabase-js";
 
-// Mock authentication for development
-const MOCK_AUTH = true;
+// Set to false since we're now connected to real Supabase
+const MOCK_AUTH = false;
 
 type AuthContextType = {
   session: Session | null;
@@ -102,7 +102,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await supabase.from("profiles").insert({
           id: data.user.id,
           username,
+          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`,
           created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         });
       }
 

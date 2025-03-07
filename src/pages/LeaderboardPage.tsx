@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/select";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Player {
   id: string;
@@ -34,6 +36,8 @@ const LeaderboardPage = () => {
   const [activeGame, setActiveGame] = useState("freefire");
   const [searchQuery, setSearchQuery] = useState("");
   const [timeFilter, setTimeFilter] = useState("all-time");
+  const { isLoggedIn } = useAuth();
+  const { toast } = useToast();
 
   // Mock data for leaderboards
   const games: Game[] = [
@@ -275,6 +279,24 @@ const LeaderboardPage = () => {
     }
   };
 
+  const handleRegisterClick = () => {
+    if (!isLoggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to register for tournaments",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Would normally open registration form here
+    toast({
+      title: "Registration Started",
+      description:
+        "Opening registration form for Free Fire Pro League Season 5",
+    });
+  };
+
   const currentGame = games.find((game) => game.id === activeGame) || games[0];
 
   // Filter players based on search query
@@ -462,7 +484,10 @@ const LeaderboardPage = () => {
                 <h3 className="font-medium">Free Fire Pro League Season 5</h3>
                 <p className="text-gray-400 text-sm">August 15, 2023</p>
               </div>
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button
+                className="bg-primary hover:bg-primary/90"
+                onClick={handleRegisterClick}
+              >
                 Register
               </Button>
             </div>
@@ -471,7 +496,10 @@ const LeaderboardPage = () => {
                 <h3 className="font-medium">BGMI Masters Series</h3>
                 <p className="text-gray-400 text-sm">September 5, 2023</p>
               </div>
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button
+                className="bg-primary hover:bg-primary/90"
+                onClick={handleRegisterClick}
+              >
                 Register
               </Button>
             </div>
@@ -482,7 +510,10 @@ const LeaderboardPage = () => {
                 </h3>
                 <p className="text-gray-400 text-sm">July 28, 2023</p>
               </div>
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button
+                className="bg-primary hover:bg-primary/90"
+                onClick={handleRegisterClick}
+              >
                 Register
               </Button>
             </div>
