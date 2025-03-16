@@ -6,6 +6,7 @@
     :root {
       --background: 240 10% 3.9%;
       --foreground: 0 0% 98%;
+      --gaming-gradient: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
 
       --card: 240 10% 3.9%;
       --card-foreground: 0 0% 98%;
