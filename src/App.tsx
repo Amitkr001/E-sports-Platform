@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { useRoutes, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/home";
 import routes from "tempo-routes";
 import TournamentCategoryPage from "./pages/TournamentCategoryPage";
@@ -44,68 +44,70 @@ function App() {
         </div>
       }
     >
-      <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tournaments" element={<TournamentsPage />} />
-          <Route
-            path="/tournaments/:category"
-            element={<TournamentCategoryPage />}
-          />
-          <Route path="/leaderboards" element={<LeaderboardPage />} />
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/events" element={<EventsPage />} />
+      <Router>
+        <>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tournaments" element={<TournamentsPage />} />
+            <Route
+              path="/tournaments/:category"
+              element={<TournamentCategoryPage />}
+            />
+            <Route path="/leaderboards" element={<LeaderboardPage />} />
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/events" element={<EventsPage />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedAdminRoute>
-                <AdminDashboard />
-              </ProtectedAdminRoute>
-            }
-          />
-          <Route
-            path="/admin/tournaments"
-            element={
-              <ProtectedAdminRoute>
-                <AdminTournaments />
-              </ProtectedAdminRoute>
-            }
-          />
-          <Route
-            path="/admin/articles"
-            element={
-              <ProtectedAdminRoute>
-                <AdminArticles />
-              </ProtectedAdminRoute>
-            }
-          />
-          <Route
-            path="/admin/analytics"
-            element={
-              <ProtectedAdminRoute>
-                <AdminAnalytics />
-              </ProtectedAdminRoute>
-            }
-          />
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedAdminRoute>
-                <AdminUsers />
-              </ProtectedAdminRoute>
-            }
-          />
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminDashboard />
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/admin/tournaments"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminTournaments />
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/admin/articles"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminArticles />
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/admin/analytics"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminAnalytics />
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminUsers />
+                </ProtectedAdminRoute>
+              }
+            />
 
-          {/* Add the tempobook route to prevent catchall issues */}
-          {import.meta.env.VITE_TEMPO === "true" && (
-            <Route path="/tempobook/*" />
-          )}
-        </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      </>
+            {/* Add the tempobook route to prevent catchall issues */}
+            {import.meta.env.VITE_TEMPO === "true" && (
+              <Route path="/tempobook/*" />
+            )}
+          </Routes>
+          {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+        </>
+      </Router>
     </Suspense>
   );
 }
