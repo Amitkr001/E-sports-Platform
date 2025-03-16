@@ -4,13 +4,9 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black">
-      {/* Animated background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-radial from-violet-900/20 via-slate-900 to-black animate-gradient"></div>
-        <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDYwIEwgNjAgMCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-      </div>
+    <div className="relative min-h-screen">
+      <div className="animated-background" />
+      <div className="grid-background" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -31,39 +27,31 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button size="lg" className="bg-violet-600 hover:bg-violet-700 text-lg px-8 py-6">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button size="lg" className="bg-violet-600 hover:bg-violet-700 text-lg px-8">
                   Join Now
                 </Button>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-violet-500/50">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button size="lg" variant="outline" className="text-lg px-8 border-2">
                   Learn More
                 </Button>
               </motion.div>
             </div>
 
             <div className="grid grid-cols-3 gap-6 pt-8">
-              {[
-                { icon: Trophy, text: "Daily Prizes", color: "text-yellow-400" },
-                { icon: Users, text: "10k+ Players", color: "text-blue-400" },
-                { icon: Gamepad, text: "Pro Gaming", color: "text-green-400" }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -5 }}
-                  className="text-center"
-                >
-                  <item.icon className={`w-8 h-8 mx-auto mb-2 ${item.color}`} />
-                  <p className="text-sm font-medium text-gray-300">{item.text}</p>
-                </motion.div>
-              ))}
+              <motion.div whileHover={{ y: -5 }} className="text-center">
+                <Trophy className="w-8 h-8 mx-auto mb-2 text-yellow-400" />
+                <p className="text-sm font-medium text-gray-300">Daily Prizes</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -5 }} className="text-center">
+                <Users className="w-8 h-8 mx-auto mb-2 text-blue-400" />
+                <p className="text-sm font-medium text-gray-300">10k+ Players</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -5 }} className="text-center">
+                <Gamepad className="w-8 h-8 mx-auto mb-2 text-green-400" />
+                <p className="text-sm font-medium text-gray-300">Pro Gaming</p>
+              </motion.div>
             </div>
           </motion.div>
 
