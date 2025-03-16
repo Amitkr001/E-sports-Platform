@@ -1,10 +1,16 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Trophy, Users, Gamepad } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <div className="relative overflow-hidden bg-gray-950 text-white">
+    <motion.section 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative min-h-[80vh] overflow-hidden bg-gray-950 text-white"
+    >
       {/* Background with overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -46,7 +52,10 @@ const HeroSection = () => {
             </div>
 
             <div className="mt-12 flex flex-col sm:flex-row gap-8">
-              <div className="flex items-center gap-3">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center gap-3"
+              >
                 <div className="bg-primary/20 p-3 rounded-full">
                   <Trophy className="h-6 w-6 text-primary" />
                 </div>
@@ -54,9 +63,12 @@ const HeroSection = () => {
                   <p className="text-2xl font-bold">250+</p>
                   <p className="text-gray-400">Tournaments</p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-3">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center gap-3"
+              >
                 <div className="bg-blue-500/20 p-3 rounded-full">
                   <Users className="h-6 w-6 text-blue-500" />
                 </div>
@@ -64,9 +76,12 @@ const HeroSection = () => {
                   <p className="text-2xl font-bold">10k+</p>
                   <p className="text-gray-400">Active Players</p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-3">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center gap-3"
+              >
                 <div className="bg-purple-500/20 p-3 rounded-full">
                   <Gamepad className="h-6 w-6 text-purple-500" />
                 </div>
@@ -74,7 +89,7 @@ const HeroSection = () => {
                   <p className="text-2xl font-bold">2</p>
                   <p className="text-gray-400">Game Titles</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -82,7 +97,12 @@ const HeroSection = () => {
             <div className="absolute -top-6 -left-6 w-64 h-64 bg-primary/30 rounded-full filter blur-3xl opacity-70 animate-blob"></div>
             <div className="absolute -bottom-8 -right-8 w-64 h-64 bg-purple-500/30 rounded-full filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
 
-            <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-2xl">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-2xl"
+            >
               <div className="absolute -top-4 -right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full">
                 LIVE NOW
               </div>
@@ -116,7 +136,7 @@ const HeroSection = () => {
               >
                 Register Now
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -135,48 +155,8 @@ const HeroSection = () => {
           ></path>
         </svg>
       </div>
-    </div>
+    </motion.section>
   );
 };
 
 export default HeroSection;
-import { motion } from "framer-motion";
-
-export const HeroSection = () => {
-  return (
-    <section className="relative min-h-[80vh] overflow-hidden bg-gaming-dark">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4A4A4A,#0F0F0F)] opacity-50" />
-      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-            <span className="text-gaming-accent">Mobile</span> Gamers Hub
-          </h1>
-          <p className="mt-6 text-xl leading-8 text-gray-300">
-            Your ultimate destination for Free Fire and BGMI tournaments, 
-            leaderboards, and gaming content.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="/tournaments"
-              className="rounded-md bg-gaming-purple px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-opacity-80 transition-all"
-            >
-              Join Tournament
-            </a>
-            <a
-              href="/leaderboard"
-              className="rounded-md border border-gaming-neon px-6 py-3 text-lg font-semibold text-gaming-neon hover:bg-gaming-neon hover:text-black transition-all"
-            >
-              View Leaderboard
-            </a>
-          </div>
-        </motion.div>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gaming-dark to-transparent" />
-    </section>
-  );
-};
