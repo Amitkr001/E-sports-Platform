@@ -44,8 +44,7 @@ function App() {
         </div>
       }
     >
-      <Router>
-        <>
+      <>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
@@ -107,7 +106,6 @@ function App() {
           </Routes>
           {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
         </>
-      </Router>
     </Suspense>
   );
 }
