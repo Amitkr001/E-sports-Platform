@@ -140,3 +140,43 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+import { motion } from "framer-motion";
+
+export const HeroSection = () => {
+  return (
+    <section className="relative min-h-[80vh] overflow-hidden bg-gaming-dark">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4A4A4A,#0F0F0F)] opacity-50" />
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <span className="text-gaming-accent">Mobile</span> Gamers Hub
+          </h1>
+          <p className="mt-6 text-xl leading-8 text-gray-300">
+            Your ultimate destination for Free Fire and BGMI tournaments, 
+            leaderboards, and gaming content.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <a
+              href="/tournaments"
+              className="rounded-md bg-gaming-purple px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-opacity-80 transition-all"
+            >
+              Join Tournament
+            </a>
+            <a
+              href="/leaderboard"
+              className="rounded-md border border-gaming-neon px-6 py-3 text-lg font-semibold text-gaming-neon hover:bg-gaming-neon hover:text-black transition-all"
+            >
+              View Leaderboard
+            </a>
+          </div>
+        </motion.div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gaming-dark to-transparent" />
+    </section>
+  );
+};
