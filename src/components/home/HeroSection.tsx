@@ -71,16 +71,44 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative hidden md:block"
+            className="relative hidden md:block space-y-4"
           >
-            <div className="relative w-full h-[600px] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-violet-900/40 via-transparent to-transparent rounded-lg backdrop-blur-sm"></div>
-              <img
-                src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1400&q=80"
-                alt="Gaming Setup"
-                className="absolute inset-0 w-full h-full object-cover rounded-lg"
-              />
-            </div>
+            {[
+              {
+                title: "Free Fire Pro League Season 5",
+                date: "August 15, 2023",
+                prize: "₹25,000",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80"
+              },
+              {
+                title: "BGMI Masters Series",
+                date: "September 5, 2023",
+                prize: "₹50,000",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80"
+              }
+            ].map((tournament, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.02 }}
+                className="relative rounded-lg overflow-hidden bg-gray-800/50 backdrop-blur-sm border border-gray-700"
+              >
+                <div className="relative h-48">
+                  <img
+                    src={tournament.image}
+                    alt={tournament.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-white">{tournament.title}</h3>
+                  <div className="flex justify-between items-center mt-2">
+                    <p className="text-sm text-gray-300">{tournament.date}</p>
+                    <p className="text-sm font-medium text-violet-400">{tournament.prize}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
